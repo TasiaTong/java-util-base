@@ -11,6 +11,10 @@ public class BaseDomainException extends RuntimeException {
         super(message);
     }
 
+    public BaseDomainException(String message, Throwable e) {
+        super(message, e);
+    }
+
     public BaseDomainException(String message, String bizMessage, Throwable e) {
         super(message, e);
         this.bizMessage = bizMessage;
