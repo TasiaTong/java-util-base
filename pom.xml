@@ -12,7 +12,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <jackson.version>2.13.4</jackson.version>
+    <jackson.version>2.14.0</jackson.version>
     <lang3.version>3.12.0</lang3.version>
     <commons-collections4.version>4.4</commons-collections4.version>
     <lombok.version>1.18.24</lombok.version>
@@ -23,9 +23,44 @@
     <spring-boot.version>2.7.3</spring-boot.version>
     <guava-retrying.version>2.0.0</guava-retrying.version>
     <elasticsearch-version>7.17.6</elasticsearch-version>
+    <spock.version>2.4-M1-groovy-4.0</spock.version>
+    <groovy.version>4.0.7</groovy.version>
+    <h2database.verison>2.1.214</h2database.verison>
+    <dbunit.version>2.7.3</dbunit.version>
+    <guava.version>31.1-jre</guava.version>
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>org.apache.groovy</groupId>
+      <artifactId>groovy-all</artifactId>
+      <version>${groovy.version}</version>
+    </dependency>
+    <!--  单测  -->
+    <dependency>
+      <groupId>org.dbunit</groupId>
+      <artifactId>dbunit</artifactId>
+      <version>${dbunit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>${h2database.verison}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.spockframework</groupId>
+      <artifactId>spock-core</artifactId>
+      <version>${spock.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.spockframework</groupId>
+      <artifactId>spock-core</artifactId>
+      <version>${spock.version}</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>org.elasticsearch</groupId>
       <artifactId>elasticsearch</artifactId>
@@ -36,6 +71,14 @@
       <artifactId>elasticsearch-rest-high-level-client</artifactId>
       <version>${elasticsearch-version}</version>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis-spring</artifactId>
+      <version>2.0.7</version>
+    </dependency>
+
 
     <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
     <dependency>
@@ -60,6 +103,11 @@
       <artifactId>spring-core</artifactId>
       <version>${spring.veriosn}</version>
     </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>${spring.veriosn}</version>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -79,7 +127,7 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>23.0</version>
+      <version>${guava.version}</version>
     </dependency>
     <dependency>
       <groupId>com.github.rholder</groupId>
@@ -122,6 +170,12 @@
       <artifactId>bcprov-jdk15on</artifactId>
       <version>${bcprov-jdk15on.version}</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>3.5.11</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -130,7 +184,97 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
       </plugin>
-
+      <!-- 测试插件 -->
+      <plugin>
+        <groupId>org.codehaus.gmavenplus</groupId>
+        <artifactId>gmavenplus-plugin</artifactId>
+        <version>1.8.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>addSources</goal>
+              <goal>addTestSources</goal>
+              <goal>generateStubs</goal>
+              <goal>compile</goal>
+              <goal>generateTestStubs</goal>
+              <goal>compileTests</goal>
+              <goal>removeStubs</goal>
+              <goal>removeTestStubs</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.0.0-M3</version>
+        <configuration>
+          <useFile>false</useFile>
+          <includes>
+            <include>**/*Spec.java</include>
+            <include>**/*Spec.groovy</include>
+            <include>**/*Test.java</include>
+            <include>**/*Spec.groovy</include>
+          </includes>
+          <parallel>methods</parallel>
+          <threadCount>10</threadCount>
+          <testFailureIgnore>true</testFailureIgnore>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.6</version>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/target/resources</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${basedir}/src/main/resources</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.2</version>
+        <executions>
+          <execution>
+            <id>prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>post-unit-test</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+            <configuration>
+              <dataFile>target/jacoco.exec</dataFile>
+              <outputDirectory>target/jacoco-ut</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       <!-- 打包 -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
