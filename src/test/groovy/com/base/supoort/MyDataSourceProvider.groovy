@@ -9,7 +9,7 @@ class MyDataSourceProvider {
     private IMethodInvocation setupSpecInvocation
     private IMethodInvocation setupInvocation
 
-    public MyDataSourceProvider(MyDbUnit dbunitAnnotation) {
+    MyDataSourceProvider(MyDbUnit dbunitAnnotation) {
         this.dbunitAnnotation = dbunitAnnotation;
     }
 

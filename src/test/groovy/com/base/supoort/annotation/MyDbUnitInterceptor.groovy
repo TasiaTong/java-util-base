@@ -14,7 +14,7 @@ import com.base.supoort.MyDataSourceProvider;
 
 /**
  * interceptor for setup, feature and cleanup method for Dbunit*/
-public class MyDbUnitInterceptor extends AbstractMethodInterceptor {
+class MyDbUnitInterceptor extends AbstractMethodInterceptor {
 
     private IDatabaseTester tester;
     private MyDbUnit dbUnitAnnotation;
