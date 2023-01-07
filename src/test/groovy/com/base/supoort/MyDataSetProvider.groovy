@@ -1,4 +1,4 @@
-package spock.supoort
+package com.base.supoort
 
 import groovy.xml.MarkupBuilder
 import org.dbunit.dataset.DataSetException
@@ -7,7 +7,7 @@ import org.dbunit.dataset.ReplacementDataSet
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder
 import org.spockframework.runtime.extension.ExtensionException
 import org.spockframework.runtime.model.FieldInfo
-import spock.supoort.annotation.MyDbUnit
+import com.base.supoort.annotation.MyDbUnit
 
 class MyDataSetProvider {
 
@@ -22,7 +22,7 @@ class MyDataSetProvider {
     IDataSet findDataSet(Object target) {
         String dataSetAsString = null
         // xml content 集合
-        if ("class.groovy.lang.Closure" != dbUnitAnnotation.content().toString()) {
+        if (Closure.class != dbUnitAnnotation.content()) {
             def dataSetClosure = dbUnitAnnotation.content().newInstance(target, target)
             dataSetAsString = writeXmlDataSet(dataSetClosure as Closure)
         }
@@ -36,15 +36,14 @@ class MyDataSetProvider {
         }
 
         if (!dataSetAsString) {
-            thow new ExtensionException("failed to find a data set." + " Specify one as DbUnit-annotated field or provide one using @DbUnit.content")
+            throw new ExtensionException("failed to find a data set." + " Specify one as DbUnit-annotated field or provide one using @DbUnit.content")
         }
-        return dataSetAsString;
+        return replacementDataSet(new StringReader(dataSetAsString));
     }
 
     private static String writeXmlDataSet(Closure dataSetClosure) {
         def xmlWriter = new StringWriter()
         def builder = new MarkupBuilder(xmlWriter)
-        // TODO: 确定版本和依赖
         builder.dataset(dataSetClosure)
         return xmlWriter as String
     }

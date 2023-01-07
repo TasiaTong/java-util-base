@@ -1,4 +1,4 @@
-package spock.supoort.annotation
+package com.base.supoort.annotation
 
 import org.spockframework.runtime.extension.AbstractAnnotationDrivenExtension
 import org.spockframework.runtime.extension.ExtensionException

@@ -1,4 +1,4 @@
-package spock.supoort;
+package com.base.supoort;
 
 import java.util.Collections;
 import javax.sql.DataSource;
@@ -8,7 +8,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
-import org.bouncycastle.pqc.crypto.newhope.NHSecretKeyProcessor.PartyUBuilder;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.Resource;
@@ -18,15 +17,17 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 public class MapperUtil {
 
-    public static final String DEFAULT_XML_MAPPER_LOCATION = "";
-    public static final String DEFAULT_MYBATIS_CONFIG = "";
-    public static final String DEFAULT_MAPPER_PACKAGE = "";
+    public static final String DEFAULT_XML_MAPPER_LOCATION = "classpath*:mybatis/mapper/*Mapper.xml";
+    public static final String DEFAULT_MYBATIS_CONFIG = "mybatis/mybatis-config.xml";
+    public static final String DEFAULT_MAPPER_PACKAGE = "com.base";
 
     public static class SqlSessionFactoryHolder {
+
         public static SqlSessionFactory SQL_SESSION_FACTORY = initSqlSession();
     }
 
     public static class DataSourceHolder {
+
         public static DataSource DATA_SOURCE = initDataSource();
     }
 
@@ -46,7 +47,8 @@ public class MapperUtil {
         sqlSessionFactoryBean.setDataSource(DataSourceHolder.DATA_SOURCE);
         sqlSessionFactoryBean.setMapperLocations(loadXmlMappers(DEFAULT_XML_MAPPER_LOCATION));
         TransactionFactory transactionFactory = new JdbcTransactionFactory();
-        Environment environment = new Environment("development", transactionFactory, DataSourceHolder.DATA_SOURCE);
+        Environment environment = new Environment("development", transactionFactory,
+                DataSourceHolder.DATA_SOURCE);
         Configuration configuration = new Configuration(environment);
         configuration.addLoadedResource(DEFAULT_MYBATIS_CONFIG);
         configuration.addMappers(DEFAULT_MAPPER_PACKAGE);
@@ -69,7 +71,8 @@ public class MapperUtil {
     private static Resource[] loadXmlMappers(String xmlMapperLocation) {
         try {
             SortedResourcesFactoryBean factoryBean = new SortedResourcesFactoryBean(
-                    new ClassPathXmlApplicationContext(), Collections.singletonList(xmlMapperLocation));
+                    new ClassPathXmlApplicationContext(),
+                    Collections.singletonList(xmlMapperLocation));
             factoryBean.afterPropertiesSet();
             return factoryBean.getObject();
         } catch (Exception ex) {

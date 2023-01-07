@@ -1,7 +1,7 @@
-package spock.supoort;
+package com.base.supoort;
 
 import org.spockframework.runtime.extension.IMethodInvocation
-import spock.supoort.annotation.MyDbUnit
+import com.base.supoort.annotation.MyDbUnit
 
 class MyDataSourceProvider {
 

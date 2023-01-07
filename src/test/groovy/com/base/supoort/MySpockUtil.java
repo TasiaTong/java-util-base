@@ -1,4 +1,4 @@
-package spock.supoort;
+package com.base.supoort;
 
 import groovy.sql.Sql;
 import java.sql.Connection;

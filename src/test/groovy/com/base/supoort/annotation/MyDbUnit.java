@@ -1,4 +1,4 @@
-package spock.supoort.annotation;
+package com.base.supoort.annotation;
 
 import groovy.lang.Closure;
 import java.lang.annotation.ElementType;

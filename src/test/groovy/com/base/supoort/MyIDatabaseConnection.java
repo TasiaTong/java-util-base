@@ -1,10 +1,10 @@
-package spock.supoort;
+package com.base.supoort;
 
 import java.sql.SQLException;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.ext.mysql.MySqlConnection;
-import spock.supoort.MapperUtil.DataSourceHolder;
+import com.base.supoort.MapperUtil.DataSourceHolder;
 
 public class MyIDatabaseConnection {
 

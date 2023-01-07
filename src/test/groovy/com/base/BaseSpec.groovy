@@ -1,8 +1,8 @@
-package base
+package com.base
 
 import spock.lang.Specification
-import spock.supoort.MapperUtil
-import spock.supoort.MySpockUtil
+import com.base.supoort.MapperUtil
+import com.base.supoort.MySpockUtil
 
 class BaseSpec extends Specification {
 
@@ -15,6 +15,6 @@ class BaseSpec extends Specification {
     }
 
     protected void dropTables(String... tableNames) {
-        MySpockUtil.dropTables(tableNames);
+        MySpockUtil.dropTables(MapperUtil.DataSourceHolder.DATA_SOURCE,tableNames);
     }
 }
