@@ -22,6 +22,7 @@
     <elasticsearch-version>7.17.6</elasticsearch-version>
     <spock.version>2.4-M1-groovy-4.0</spock.version>
     <groovy.version>4.0.6</groovy.version>
+    <groovy.version>4.0.6</groovy.version>
     <h2database.verison>2.1.214</h2database.verison>
     <dbunit.version>2.7.3</dbunit.version>
     <guava.version>31.1-jre</guava.version>
@@ -49,7 +50,18 @@
     <dependency>
       <groupId>org.apache.groovy</groupId>
       <artifactId>groovy-sql</artifactId>
+      <artifactId>groovy-sql</artifactId>
       <version>${groovy.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+      <version>${javax.annotation.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>${javax.validation.version}</version>
     </dependency>
     <dependency>
       <groupId>javax.annotation</groupId>
@@ -77,6 +89,16 @@
           <groupId>org.checkerframework</groupId>
         </exclusion>
       </exclusions>
+      <exclusions>
+        <exclusion>
+          <artifactId>slf4j-api</artifactId>
+          <groupId>org.slf4j</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>checker-qual</artifactId>
+          <groupId>org.checkerframework</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.h2database</groupId>
@@ -86,6 +108,7 @@
     </dependency>
     <dependency>
       <groupId>org.spockframework</groupId>
+      <artifactId>spock-spring</artifactId>
       <artifactId>spock-spring</artifactId>
       <version>${spock.version}</version>
       <scope>test</scope>
@@ -120,24 +143,35 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
       <version>${springframework.version}</version>
+      <version>${springframework.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
+      <version>${springframework.version}</version>
       <version>${springframework.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-beans</artifactId>
       <version>${springframework.version}</version>
+      <artifactId>spring-beans</artifactId>
+      <version>${springframework.version}</version>
     </dependency>
+    <!-- slf4j + log4j 日志 -->
     <!-- slf4j + log4j 日志 -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
       <version>${slf4j.version}</version>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>${slf4j.version}</version>
     </dependency>
     <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>${slf4j.version}</version>
@@ -156,6 +190,16 @@
       <groupId>com.github.rholder</groupId>
       <artifactId>guava-retrying</artifactId>
       <version>${guava-retrying.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>jsr305</artifactId>
+          <groupId>com.google.code.findbugs</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>guava</artifactId>
+          <groupId>com.google.guava</groupId>
+        </exclusion>
+      </exclusions>
       <exclusions>
         <exclusion>
           <artifactId>jsr305</artifactId>
@@ -244,6 +288,7 @@
           <useFile>false</useFile>
           <includes>
             <include>**/*Spec.java</include>
+            <include>**/*Test.groovy</include>
             <include>**/*Test.groovy</include>
             <include>**/*Test.java</include>
             <include>**/*Spec.groovy</include>
