@@ -39,8 +39,9 @@ public class MapperUtil {
     private static DataSource initDataSource() {
         // H2 dataSource setting: http://www.h2database.com/javadoc/org/h2/engine/DbSettings.html
         // https://www.jianshu.com/p/4a613dcf182c
+        // TRACE_LEVEL_SYSTEM_OUT=2
         return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2)
-                .setName("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;MODE=MySQL;TRACE_LEVEL_SYSTEM_OUT=2")
+                .setName("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;MODE=MySQL;")
                 .build();
     }
 
