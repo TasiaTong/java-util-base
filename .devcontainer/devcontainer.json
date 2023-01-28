@@ -1,0 +1,41 @@
+{
+	"name": "my-java-util-base-package",
+	"image": "mcr.microsoft.com/devcontainers/universal:2",
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {
+			"installZsh": true,
+			"installOhMyZsh": true
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"settings": {},
+			"extensions": [
+				"dcortes92.FreeMarker",
+				"VisualStudioExptTeam.vscodeintellicode",
+				"VisualStudioExptTeam.intellicode-api-usage-examples",
+				"redhat.java",
+				"vscjava.vscode-maven",
+				"vscjava.vscode-java-dependency",
+				"vscjava.vscode-java-test",
+				"DotJoshJohnson.xml",
+				"GitHub.copilot",
+				"ms-python.python",
+				"tht13.python",
+				"formulahendry.code-runner",
+                "ms-vscode-remote.remote-containers",
+                "ms-vscode-remote.vscode-remote-extensionpack"
+			]
+		},
+		"codespaces": {
+			"openFiles": ["README"],
+			"repositories": {
+				"my_org/my_repo": {
+					"permissions": {
+						"issues": "write"
+					}
+				}
+			}
+		}
+	}
+}
