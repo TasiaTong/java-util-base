@@ -53,6 +53,8 @@ public class MapperUtil {
         Environment environment = new Environment("development", transactionFactory,
                 DataSourceHolder.DATA_SOURCE);
         Configuration configuration = new Configuration(environment);
+        // 显式添加分页插件
+        configuration.addInterceptor(new PageInterceptor());
         configuration.addLoadedResource(DEFAULT_MYBATIS_CONFIG);
         configuration.addMappers(DEFAULT_MAPPER_PACKAGE);
         sqlSessionFactoryBean.setConfiguration(configuration);
