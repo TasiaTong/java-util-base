@@ -1,5 +1,6 @@
 package com.base.supoort;
 
+import com.github.pagehelper.PageInterceptor;
 import java.util.Collections;
 import javax.sql.DataSource;
 import org.apache.ibatis.mapping.Environment;
@@ -54,7 +55,7 @@ public class MapperUtil {
                 DataSourceHolder.DATA_SOURCE);
         Configuration configuration = new Configuration(environment);
         // 显式添加分页插件
-        configuration.addInterceptor(new PageInterceptor());
+        configuration.addInterceptor(new PageHelper());
         configuration.addLoadedResource(DEFAULT_MYBATIS_CONFIG);
         configuration.addMappers(DEFAULT_MAPPER_PACKAGE);
         sqlSessionFactoryBean.setConfiguration(configuration);
