@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.ext.mysql.MySqlConnection;
+import org.dbunit.database.DatabaseConfig;
 import com.base.supoort.MapperUtil.DataSourceHolder;
 
 public class MyIDatabaseConnection {
@@ -25,6 +26,7 @@ public class MyIDatabaseConnection {
         if (conn == null) {
             Class.forName("org.h2.Driver");
             conn = new MySqlConnection(DataSourceHolder.DATA_SOURCE.getConnection(), "");
+            conn.getConfig().setFeature(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, true);
         }
         return conn;
     }

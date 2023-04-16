@@ -1,16 +1,17 @@
 package com.base.supoort.annotation
 
-import org.dbunit.DataSourceDatabaseTester;
+import org.dbunit.DataSourceDatabaseTester
 import org.dbunit.IDatabaseTester
-import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.database.IDatabaseConnection
+import org.dbunit.database.DatabaseConfig
 import org.spockframework.runtime.extension.AbstractMethodInterceptor
 import org.spockframework.runtime.extension.ExtensionException
 import org.spockframework.runtime.extension.IMethodInvocation
-import org.spockframework.runtime.model.FeatureInfo;
+import org.spockframework.runtime.model.FeatureInfo
 import org.spockframework.runtime.model.FieldInfo
-import com.base.supoort.MapperUtil;
-import com.base.supoort.MyDataSetProvider;
-import com.base.supoort.MyDataSourceProvider;
+import com.base.supoort.MapperUtil
+import com.base.supoort.MyDataSetProvider
+import com.base.supoort.MyDataSourceProvider
 
 /**
  * interceptor for setup, feature and cleanup method for Dbunit*/
@@ -72,6 +73,7 @@ class MyDbUnitInterceptor extends AbstractMethodInterceptor {
             IDatabaseConnection getConnection() throws Exception {
                 if (!currentConnection || currentConnection.connection.isClosed()) {
                     currentConnection = super.connection
+                    currentConnection.getConfig().setFeature(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, true)
                 }
                 return currentConnection
             }
