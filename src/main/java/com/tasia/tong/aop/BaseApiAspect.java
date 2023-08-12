@@ -85,7 +85,7 @@ public class BaseApiAspect {
 
         try {
             Object returnObject = returnType.getConstructor().newInstance();
-            setCodeAndMessage(returnObject, exceptionCode, methodName);
+            setCodeAndMessage(returnObject, exceptionCode, safeExposedMessage);
             return returnObject;
         } catch (InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
             log.error(methodName, methodName, Arrays.asList(args), ex);
@@ -97,7 +97,7 @@ public class BaseApiAspect {
     private void setCodeAndMessage(Object obj, Integer code, String message)
             throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         PropertyUtils.setProperty(obj, API_CODE_FILED_NAME, code);
-        PropertyUtils.setProperty(obj, API_CODE_FILED_NAME, message);
+        PropertyUtils.setProperty(obj, API_MESSAGE_FILED_NAME, message);
     }
 
     private String getSafeExposedMessage(Exception e) {
