@@ -18,12 +18,12 @@
     <junit.version>4.12</junit.version>
     <pinyin4j.version>2.6.0</pinyin4j.version>
     <spring-boot.version>2.7.3</spring-boot.version>
-    <springframework.version>5.3.26</springframework.version>
+    <springframework.version>5.3.27</springframework.version>
     <guava-retrying.version>2.0.0</guava-retrying.version>
     <elasticsearch-version>7.17.6</elasticsearch-version>
     <spock.version>2.4-M1-groovy-4.0</spock.version>
     <groovy.version>4.0.6</groovy.version>
-    <h2database.verison>2.1.214</h2database.verison>
+    <h2database.verison>2.2.220</h2database.verison>
     <dbunit.version>2.7.3</dbunit.version>
     <guava.version>31.1-jre</guava.version>
     <logback.version>1.4.7</logback.version>
